@@ -3,6 +3,11 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseService;
+use Services\AuthenticationTokenBuilder;
+use Services\DatabaseRoleManager;
+use Services\DatabaseUserManager;
+use Services\PseudoRandomTokenGenerator;
+use Services\ValidatorBuilder;
 
 /**
  * Services Configuration file.
@@ -29,4 +34,44 @@ class Services extends BaseService
      *     return new \CodeIgniter\Example();
      * }
      */
+
+    public static function authenticationTokenBuilder($getShared = false, string $authenticationToken = null) {
+        if ($getShared) {
+            return static::getSharedInstance('authenticationTokenBuilder', $authenticationToken);
+        }
+
+        return new AuthenticationTokenBuilder(separator: '_', authenticationToken: $authenticationToken);
+    }
+
+    public static function validatorBuilder($getShared = false) {
+        if ($getShared) {
+            return static::getSharedInstance('validatorBuilder');
+        }
+
+        return new ValidatorBuilder();
+    }
+
+    public static function userManager($getShared = true) {
+        if ($getShared) {
+            return static::getSharedInstance('userManager');
+        }
+
+        return new DatabaseUserManager();
+    }
+
+    public static function roleManager($getShared = true) {
+        if ($getShared) {
+            return static::getSharedInstance('roleManager');
+        }
+
+        return new DatabaseRoleManager();
+    }
+
+    public static function tokenGenerator($getShared = false) {
+        if ($getShared) {
+            return static::getSharedInstance('tokenGenerator');
+        }
+
+        return new PseudoRandomTokenGenerator();
+    }
 }
