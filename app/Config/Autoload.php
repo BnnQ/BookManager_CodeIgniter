@@ -41,7 +41,14 @@ class Autoload extends AutoloadConfig
      */
     public $psr4 = [
         APP_NAMESPACE => APPPATH, // For custom app namespace
-        'Config'      => APPPATH . 'Config'
+        'Config'      => APPPATH . 'Config',
+        'Services' => APPPATH . 'Services',
+        'Services/Abstractions' => APPPATH . 'Services/Abstractions',
+        'Exceptions' => APPPATH . 'Exceptions',
+        'Models' => APPPATH . 'Models',
+        'Entities' => APPPATH . 'Entities',
+        'Entities/Dto' => APPPATH . 'Entities/Dto',
+        'Utils' => APPPATH . 'Utils'
     ];
 
     /**
@@ -63,7 +70,18 @@ class Autoload extends AutoloadConfig
      */
     public $classmap = [
         'Author' => APPPATH . 'Entities/Author.php',
-        'Book' => APPPATH . 'Entities/Book.php'
+        'Book' => APPPATH . 'Entities/Book.php',
+        'IRoleManager' => APPPATH . 'Services/Abstractions/IRoleManager.php',
+        'UserManagerBase' => APPPATH . 'Services/Abstractions/UserManagerBase.php',
+        'DatabaseRoleManager' => APPPATH . 'Services/DatabaseRoleManager.php',
+        'DatabaseUserManager' => APPPATH . 'Services/DatabaseUserManager.php',
+        'PseudoRandomTokenGenerator' => APPPATH . 'Services/PseudoRandomTokenGenerator.php',
+        'Validator' => APPPATH . 'Services/Validator.php',
+        'ValidatorBuilder' => APPPATH . 'Services/ValidatorBuilder.php',
+        'Cookie' => APPPATH . 'Utils/Cookie.php',
+        'CookieUtils' => APPPATH . 'Utils/CookieUtils.php',
+        'IoUtils' => APPPATH . 'Utils/IoUtils.php',
+        'BookDto' => APPPATH . 'Entities/Dto/BookDto.php'
     ];
 
     /**
