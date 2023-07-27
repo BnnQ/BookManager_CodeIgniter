@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Book;
+use BookDto;
 use CodeIgniter\Model;
 
 class BookModel extends Model
@@ -66,6 +67,25 @@ class BookModel extends Model
             ->where('id', $id);
 
         return Book::parseFromArray($query->get()->getRowArray());
+    }
+
+    public function findAllDto(int $limit = 0, int $offset = 0) {
+        $builder = $this->builder();
+        $query = $builder
+            ->select("Books.id, Books.title, Books.price, Books.yearOfPublish, CONCAT(Authors.firstname, ' ', Authors.surname) as authorName")
+            ->join('Authors', 'Books.authorId = Authors.id');
+
+        if ($limit > 0)
+            $query = $query->limit($limit);
+
+        if ($offset > 0)
+            $query = $query->offset($offset);
+
+        $books = [];
+        foreach ($query->get()->getResultArray() as $bookRow)
+            $books[] = BookDto::parseFromArray($bookRow);
+
+        return $books;
     }
 
 }
